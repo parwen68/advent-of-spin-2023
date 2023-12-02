@@ -1,0 +1,28 @@
+spin_manifest_version = 2
+
+[application]
+name = "aos1"
+version = "0.2.0"
+authors = ["Par Wenaker <par@wenaker.se>"]
+description = "Advent Of Sprint 2023, Part 1"
+
+[[trigger.http]]
+route = "/..."
+component = "static"
+
+[component.static]
+source = { url = "https://github.com/fermyon/spin-fileserver/releases/download/v0.1.0/spin_static_fs.wasm", digest = "sha256:96c76d9af86420b39eb6cd7be5550e3cb5d4cc4de572ce0fd1f6a29471536cb4" }
+files = [{ source = "assets", destination = "/" }]
+
+[[trigger.http]]
+route = "/data/..."
+component = "wishlist"
+
+[component.wishlist]
+source = "wishlist/target/wishlist.wasm"
+key_value_stores = ["default"]
+[component.wishlist.build]
+command = "npm run build"
+workdir = "wishlist"
+watch = ["package.json", "src/*.ts"]
+
