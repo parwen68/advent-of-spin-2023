@@ -1,0 +1,17 @@
+spin_manifest_version = 2
+
+[application]
+authors = ["Par Wenaker <par@wenaker.se>"]
+description = ""
+name = "aos2"
+version = "0.1.0"
+
+[[trigger.http]]
+route = "/..."
+component = "aos2"
+
+[component.aos2]
+source = "app.wasm"
+[component.aos2.build]
+command = "spin py2wasm app -o app.wasm"
+watch = ["app.py", "Pipfile"]
